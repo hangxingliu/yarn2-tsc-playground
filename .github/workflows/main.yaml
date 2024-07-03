@@ -8,18 +8,32 @@ on:
   - workflow_dispatch
 
 jobs:
-
-  build:
+  build-with-node-modules:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
+      - name: Install and build
+        run: |
+          corepack enable &&
+          yarn install &&
+          ls -al &&
+          yarn run build
+
+  build-with-pnp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
           # cache: 'yarn'
       - name: Install and build
         run: |
           bash enable-pnp.sh &&
           corepack enable &&
+          ls -al &&
           yarn install &&
           yarn run build
