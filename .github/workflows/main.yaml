@@ -8,22 +8,7 @@ on:
   - workflow_dispatch
 
 jobs:
-  build-with-typescript-4:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Install and build
-        run: |
-          corepack enable &&
-          bash use-typescript-4.sh
-          yarn install &&
-          ls -al &&
-          yarn run build
-
-  build-with-pnp:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
