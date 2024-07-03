@@ -1,0 +1,25 @@
+name: ci
+
+# https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+# https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  - push
+  - pull_request
+  - workflow_dispatch
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+      - name: Install and build
+        run: |
+          bash enable-pnp.sh &&
+          corepack enable &&
+          yarn install &&
+          yarn run build
